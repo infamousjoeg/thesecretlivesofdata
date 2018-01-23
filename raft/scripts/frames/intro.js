@@ -75,7 +75,7 @@ define([], function () {
             layout.invalidate();
         })
         .after(1000, function () {
-            frame.model().subtitle = '<h3>We also have a <span style="color:green">client</span> that can send a value to the server.</h3>'
+            frame.model().subtitle = '<h3>We also have a <span style="color:green">follower</span> that can send a value to the server.</h3>'
                            + frame.model().controls.html();
             layout.invalidate();
         })
