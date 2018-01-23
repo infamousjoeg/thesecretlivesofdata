@@ -47,7 +47,7 @@ define(["../model/log_entry"], function (LogEntry) {
         .after(100, function () {
             frame.snapshot();
             node("b")._state = "follower";
-            model().subtitle = '<h2>The <em>Follower</em> state,</h2>'
+            model().subtitle = '<h2>The <em>Standby</em> state,</h2>'
                            + model().controls.html();
             layout.invalidate();
         })
@@ -55,7 +55,7 @@ define(["../model/log_entry"], function (LogEntry) {
         .after(100, function () {
             frame.snapshot();
             node("b")._state = "candidate";
-            model().subtitle = '<h2>the <em>Candidate</em> state,</h2>'
+            model().subtitle = '<h2>the <em>Master Candidate</em> state,</h2>'
                            + model().controls.html();
             layout.invalidate();
         })
@@ -63,7 +63,7 @@ define(["../model/log_entry"], function (LogEntry) {
         .after(100, function () {
             frame.snapshot();
             node("b")._state = "leader";
-            model().subtitle = '<h2>or the <em>Leader</em> state.</h2>'
+            model().subtitle = '<h2>or the <em>Master</em> state.</h2>'
                            + model().controls.html();
             layout.invalidate();
         })
@@ -73,14 +73,14 @@ define(["../model/log_entry"], function (LogEntry) {
             frame.snapshot();
             model().zoom(null);
             node("b")._state = "follower";
-            model().subtitle = '<h2>All our nodes start in the follower state.</h2>'
+            model().subtitle = '<h2>All our nodes start in the standby state.</h2>'
                            + model().controls.html();
             layout.invalidate();
         })
         .after(100, wait).indefinite()
         .after(100, function () {
             frame.snapshot();
-            model().subtitle = '<h2>If followers don\'t hear from a leader then they can become a candidate.</h2>'
+            model().subtitle = '<h2>If standbys don\'t hear from a master then they can become a master candidate.</h2>'
                            + model().controls.html();
             layout.invalidate();
         })
@@ -91,7 +91,7 @@ define(["../model/log_entry"], function (LogEntry) {
         .after(100, wait).indefinite()
         .after(100, function () {
             frame.snapshot();
-            model().subtitle = '<h2>The candidate then requests votes from other nodes.</h2>'
+            model().subtitle = '<h2>The master candidate then requests votes from other nodes.</h2>'
                            + model().controls.html();
             layout.invalidate();
         })
@@ -121,14 +121,14 @@ define(["../model/log_entry"], function (LogEntry) {
         .after(100, wait).indefinite()
         .after(100, function () {
             frame.snapshot();
-            model().subtitle = '<h2>The candidate becomes the leader if it gets votes from a majority of nodes.</h2>'
+            model().subtitle = '<h2>The master candidate becomes the master if it gets votes from a majority of nodes.</h2>'
                            + model().controls.html();
             layout.invalidate();
         })
         .after(100, wait).indefinite()
         .after(100, function () {
             frame.snapshot();
-            model().subtitle = '<h2>This process is called <em>Leader Election</em>.</h2>'
+            model().subtitle = '<h2>This process is called <em>Master Election</em>.</h2>'
                            + model().controls.html();
             layout.invalidate();
         })
@@ -137,7 +137,7 @@ define(["../model/log_entry"], function (LogEntry) {
 
         .after(100, function () {
             frame.snapshot();
-            model().subtitle = '<h2>All changes to the system now go through the leader.</h2>'
+            model().subtitle = '<h2>All changes to the system now go through the master.</h2>'
                            + model().controls.html();
             layout.invalidate();
         })
@@ -184,7 +184,7 @@ define(["../model/log_entry"], function (LogEntry) {
                 node("c")._log.push(new LogEntry(model(), 1, 1, "SET 5"));
                 layout.invalidate();
             });
-            model().subtitle = '<h2>To commit the entry the node first replicates it to the follower nodes...</h2>'
+            model().subtitle = '<h2>To commit the entry the node first replicates it to the standby nodes...</h2>'
                            + model().controls.html();
             layout.invalidate();
         })
@@ -197,7 +197,7 @@ define(["../model/log_entry"], function (LogEntry) {
                 layout.invalidate();
             });
             model().send(node("c"), node("a"), {type:"AEREQ"});
-            model().subtitle = '<h2>then the leader waits until a majority of nodes have written the entry.</h2>'
+            model().subtitle = '<h2>then the master waits until a majority of nodes have written the entry.</h2>'
                            + model().controls.html();
             layout.invalidate();
         })
@@ -209,7 +209,7 @@ define(["../model/log_entry"], function (LogEntry) {
         .after(100, wait).indefinite()
         .after(100, function () {
             frame.snapshot();
-            model().subtitle = '<h2>The entry is now committed on the leader node and the node state is "5".</h2>'
+            model().subtitle = '<h2>The entry is now committed on the master node and the node state is "5".</h2>'
                            + model().controls.html();
             layout.invalidate();
         })
@@ -226,7 +226,7 @@ define(["../model/log_entry"], function (LogEntry) {
                 node("c")._commitIndex = 1;
                 layout.invalidate();
             });
-            model().subtitle = '<h2>The leader then notifies the followers that the entry is committed.</h2>'
+            model().subtitle = '<h2>The master then notifies the standbys that the entry is committed.</h2>'
                            + model().controls.html();
             layout.invalidate();
         })
